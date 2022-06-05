@@ -8,7 +8,7 @@ It consists of two parts - client and server. The client is a Windows dll librar
 
 The server is a Linux program that waits for connections from clients and translates their requests to Speech dispatcher.
 
-This way, SD can be used with any Windows application supporting NVDA through its controller library.
+This way, SD can be used with any Windows application supporting NVDA through the screenreader's controller library.
 
 ## Build
 

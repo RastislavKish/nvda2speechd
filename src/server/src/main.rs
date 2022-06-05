@@ -38,7 +38,7 @@ fn main() {
 
             let spd_connection=speech_dispatcher::Connection::open("nvda2speechd", "", "", speech_dispatcher::Mode::Threaded).unwrap();
 
-            println!("Connection established");
+            println!("New connection established");
 
             loop {
                 if let Ok(msg)=websocket.read_message() {
