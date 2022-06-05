@@ -1,0 +1,17 @@
+[package]
+name = "testclient"
+license = "GPL-3.0-only"
+version = "0.1.0"
+authors = ["Rastislav Kish <rastislav.kish@protonmail.com>"]
+edition = "2021"
+description = "A simple utility to test nvda2speechd server"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+serde={version="1.0.137", features=["derive"]}
+rmp-serde="1.1.0"
+tungstenite="0.17.2"
+url="2.2.2"
+
