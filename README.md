@@ -12,11 +12,45 @@ This way, SD can be used with any Windows application supporting NVDA through th
 
 ## Build
 
-Both client and server are written in Rust, and can be compiled using cargo.
+### Dependencies
 
-The important part is to build each with the right toolchain. The server needs to be built for Linux, the architecture doesn't play a role as far as it's supported by the user's system. libspeechd-dev apt package needs to be installed for compilation purposes.
+In order to build nvda2speechd, you need the following dependencies:
 
-The client is a Windows dll, and therefore needs to be compiled either right on Windows using Rust's MSVC (by default) toolchain, or on Linux, making use of mingw-w64. The architecture needs to match the one of the target application.
+* Rust, see the [Rust installation page](https://www.rust-lang.org/tools/install) for installation instructions.
+* libspeechd-dev
+* Clang
+* mingw-w64
+* Rust windows toolchains
+
+On Ubuntu, just run:
+
+```
+sudo apt update
+sudo apt install libspeechd-dev clang mingw-w64
+```
+
+To get the apt dependencies.
+
+And install the Rust Windows toolchains via rustup:
+
+```
+rustup target add x86_64-pc-windows-gnu
+rustup target add i686-pc-windows-gnu
+```
+
+### Compilation
+
+When you have everything setup, clone and compile the project:
+
+```
+git clone https://github.com/RastislavKish/nvda2speechd
+cd nvda2speechd
+./compile.sh
+```
+
+compile.sh is a simple automation script for compiling and assembling the project.
+
+You can find the results in a newly created bin directory.
 
 ## Usage
 
