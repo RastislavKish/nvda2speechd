@@ -515,9 +515,9 @@ checksum = "43b2853a4d09f215c24cc5489c992ce46052d359b5109343cbafbf26bc62f8a3"
 
 [[package]]
 name = "speech-dispatcher"
-version = "0.11.0"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71c9368fece2a2c83dbb130d64a377a224b73c6f394150a711f721a7e1b26803"
+checksum = "6666f544c544d04049f40dfaebd4e3246ce9add2b7ad69c5cf89459492f01346"
 dependencies = [
  "lazy_static",
  "speech-dispatcher-sys",
@@ -525,9 +525,9 @@ dependencies = [
 
 [[package]]
 name = "speech-dispatcher-sys"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "129eb86c582b5ba71d6dfde6e43b9b972011ae140f41b8a00bdf8357e69d19b9"
+checksum = "6c3e8acdf2b1f4bb13f1813b40b52f3edf4cc94d8a55fe713a584f672a10388d"
 dependencies = [
  "bindgen",
 ]
