@@ -52,6 +52,8 @@ compile.sh is a simple automation script for compiling and assembling the projec
 
 You can find the results in a newly created bin directory.
 
+Also note when compiling with mingw-w64, for the 32 bit library, it may be also necessary to include libgcc_s_dw2-1.dll. In the Ubuntu's distribution of mingw-w64, you can find it under /usr/lib/gcc/i686-w64-mingw32/10-win32.
+
 ## Usage
 
 After either compiling or downloading a pre-built version of the nvda2speechd client, rename the library to either nvdaControllerClient32.dll or nvdaControllerClient64.dll, according to the architecture. This step is not performed automatically to avoid confusion with the original library.
