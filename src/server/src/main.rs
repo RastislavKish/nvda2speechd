@@ -40,29 +40,24 @@ fn main() {
 
             println!("New connection established");
 
-            loop {
-                if let Ok(msg)=websocket.read_message() {
-                    if let Message::Binary(data) = msg {
-                        if let Ok(request)=rmp_serde::from_slice::<Request>(&data[..]) {
-                            match request {
-                                Request::SpeakText(text) => {
-                                    spd_connection.say(speech_dispatcher::Priority::Text, &text);
-                                    },
-                                Request::CancelSpeech => {
-                                    spd_connection.cancel().unwrap();
-                                    },
-                                Request::BrailleMessage(_) => {
+            while let Ok(msg)=websocket.read() {
+                if let Message::Binary(data) = msg {
+                    if let Ok(request)=rmp_serde::from_slice::<Request>(&data[..]) {
+                        match request {
+                            Request::SpeakText(text) => {
+                                spd_connection.say(speech_dispatcher::Priority::Text, &text);
+                                },
+                            Request::CancelSpeech => {
+                                spd_connection.cancel().unwrap();
+                                },
+                            Request::BrailleMessage(_) => {
 
-                                    },
-                                }
+                                },
                             }
                         }
                     }
-                else {
-                    println!("A connection closed");
-                    break;
-                    }
                 }
+            println!("A connection closed");
             });
         }
     }
