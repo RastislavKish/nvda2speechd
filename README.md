@@ -21,6 +21,7 @@ In order to build nvda2speechd, you need the following dependencies:
 * Clang
 * mingw-w64
 * Rust windows toolchains
+* [Just](https://github.com/casey/just), used for compilation
 
 On Ubuntu, just run:
 
@@ -38,6 +39,12 @@ rustup target add x86_64-pc-windows-gnu
 rustup target add i686-pc-windows-gnu
 ```
 
+you can install Just using cargo:
+
+```
+cargo install just
+```
+
 ### Compilation
 
 When you have everything setup, clone and compile the project:
@@ -45,10 +52,10 @@ When you have everything setup, clone and compile the project:
 ```
 git clone https://github.com/RastislavKish/nvda2speechd
 cd nvda2speechd
-./compile.sh
+just build
 ```
 
-compile.sh is a simple automation script for compiling and assembling the project.
+See ```just --list``` for all available commands.
 
 You can find the results in a newly created bin directory.
 
@@ -56,9 +63,7 @@ Also note when compiling with mingw-w64, for the 32 bit library, it may be also 
 
 ## Usage
 
-After either compiling or downloading a pre-built version of the nvda2speechd client, rename the library to either nvdaControllerClient32.dll or nvdaControllerClient64.dll, according to the architecture. This step is not performed automatically to avoid confusion with the original library.
-
-Then, replace the real NVDA controller dll with the one of nvda2speechd.
+After either compiling or downloading a pre-built version of the nvda2speechd client, replace the real NVDA controller dll with the one of nvda2speechd.
 
 Launch the server in your Linux environment, and start the Windows application in Wine. The Speech should be routed to speech Dispatcher.
 
