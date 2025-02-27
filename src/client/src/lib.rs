@@ -36,7 +36,7 @@ struct Core {
 impl Core {
 
     pub fn new() -> Core {
-        if let Ok((socket, _))=connect(Core::get_host()) {
+        if let Ok((socket, _))=connect(Core::get_host().to_string()) {
             return Core { socket: Some(socket) };
             }
 
@@ -61,7 +61,7 @@ impl Core {
 
         if let Some(socket)=&mut self.socket {
             let request=Request::SpeakText(text);
-            socket.write_message(Message::Binary(rmp_serde::to_vec(&request).unwrap())).unwrap();
+            socket.send(Message::Binary(rmp_serde::to_vec(&request).unwrap().into())).unwrap();
             return 0;
             }
 
@@ -74,7 +74,7 @@ impl Core {
 
         if let Some(socket)=&mut self.socket {
             let request=Request::CancelSpeech;
-            socket.write_message(Message::Binary(rmp_serde::to_vec(&request).unwrap())).unwrap();
+            socket.send(Message::Binary(rmp_serde::to_vec(&request).unwrap().into())).unwrap();
             return 0;
             }
 
@@ -87,7 +87,7 @@ impl Core {
 
         if let Some(socket)=&mut self.socket {
             let request=Request::BrailleMessage(text);
-            socket.write_message(Message::Binary(rmp_serde::to_vec(&request).unwrap())).unwrap();
+            socket.send(Message::Binary(rmp_serde::to_vec(&request).unwrap().into())).unwrap();
             return 0;
             }
 
@@ -95,7 +95,7 @@ impl Core {
         }
 
     fn reconnect(&mut self) {
-        if let Ok((socket, _))=connect(Core::get_host()) {
+        if let Ok((socket, _))=connect(Core::get_host().to_string()) {
             self.socket=Some(socket);
             }
         }
