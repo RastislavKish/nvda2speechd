@@ -15,7 +15,6 @@ crate-type=["dylib"]
 
 [dependencies]
 
-lazy_static="1.4.0"
 widestring="0.5.1"
 serde={version="1.0.137", features=["derive"]}
 rmp-serde="1.1.0"

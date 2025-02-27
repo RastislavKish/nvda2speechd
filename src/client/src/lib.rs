@@ -15,10 +15,7 @@
 */
 
 use std::net::TcpStream;
-use std::sync::Mutex;
-
-#[macro_use]
-extern crate lazy_static;
+use std::sync::{LazyLock, Mutex};
 
 use widestring::U16CString;
 
@@ -114,9 +111,7 @@ impl Core {
         }
     }
 
-lazy_static! {
-    static ref CORE: Mutex<Core>=Mutex::new(Core::new());
-    }
+static CORE: LazyLock<Mutex<Core>> = LazyLock::new(|| Mutex::new(Core::new()));
 
 #[no_mangle]
 pub extern "stdcall" fn nvdaController_testIfRunning() -> i64 {
