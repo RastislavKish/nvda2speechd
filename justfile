@@ -52,3 +52,15 @@ client_32_output_path := builddir/client_32_name
   cargo clean -q
   if [ -f '{{ client_32_output_path }}' ]; then rm '{{ client_32_output_path }}'; fi
 
+[working-directory: 'src/server']
+@lint-server:
+  cargo clippy --release -q
+
+[working-directory: 'src/client']
+@lint-client-64:
+  cargo clippy --target {{ win64_target }} --release -q
+
+[working-directory: 'src/client']
+@lint-client-32:
+  cargo clippy --target {{ win32_target }} --release -q
+
