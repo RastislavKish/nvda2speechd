@@ -26,7 +26,7 @@ enum Request {
     }
 
 fn main() {
-    if let Ok((mut socket, _))=connect(get_host()) {
+    if let Ok((mut socket, _))=connect(get_host().to_string()) {
         let stdin=std::io::stdin();
 
         loop {
@@ -35,12 +35,12 @@ fn main() {
             input=input.trim().to_string();
 
             if input.starts_with("speakText") && input.len()>10 {
-                let request=Request::SpeakText((&input[10..]).to_string());
-                socket.write_message(Message::Binary(rmp_serde::to_vec(&request).unwrap())).unwrap();
+                let request=Request::SpeakText((input[10..]).to_string());
+                socket.send(Message::Binary(rmp_serde::to_vec(&request).unwrap().into())).unwrap();
                 }
             else if input=="cancel" {
                 let request=Request::CancelSpeech;
-                socket.write_message(Message::Binary(rmp_serde::to_vec(&request).unwrap())).unwrap();
+                socket.send(Message::Binary(rmp_serde::to_vec(&request).unwrap().into())).unwrap();
                 }
             else if input=="quit" {
                 break;

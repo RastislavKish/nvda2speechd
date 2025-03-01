@@ -6,10 +6,12 @@ win32_target := 'i686-pc-windows-gnu'
 server_name := 'nvda2speechd'
 client_64_name := 'nvdaControllerClient64.dll'
 client_32_name := 'nvdaControllerClient32.dll'
+testclient_name := 'testclient'
 
 server_output_path := builddir/server_name
 client_64_output_path := builddir/client_64_name
 client_32_output_path := builddir/client_32_name
+testclient_output_path := builddir/testclient_name
 
 @build: build-server build-client
 
@@ -33,7 +35,13 @@ client_32_output_path := builddir/client_32_name
   mkdir -p "{{ builddir }}"
   cp '{{ "target" / win32_target / "release/nvda2speechd.dll"}}' '{{ client_32_output_path }}'
 
-@clean: clean-server clean-client
+[working-directory: 'src/testclient']
+@build-testclient:
+  cargo build --release -q
+  mkdir -p "{{ builddir }}"
+  cp 'target/release/testclient' '{{ testclient_output_path }}'
+
+@clean: clean-server clean-client clean-testclient
 
 [working-directory: 'src/server']
 @clean-server:
@@ -52,6 +60,11 @@ client_32_output_path := builddir/client_32_name
   cargo clean -q
   if [ -f '{{ client_32_output_path }}' ]; then rm '{{ client_32_output_path }}'; fi
 
+[working-directory: 'src/testclient']
+@clean-testclient:
+  cargo clean -q
+  if [ -f '{{ testclient_output_path }}' ]; then rm '{{ testclient_output_path }}'; fi
+
 [working-directory: 'src/server']
 @lint-server:
   cargo clippy --release -q
@@ -63,4 +76,8 @@ client_32_output_path := builddir/client_32_name
 [working-directory: 'src/client']
 @lint-client-32:
   cargo clippy --target {{ win32_target }} --release -q
+
+[working-directory: 'src/testclient']
+@lint-testclient:
+  cargo clippy --release -q
 
